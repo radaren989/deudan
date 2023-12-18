@@ -1,1 +1,1 @@
-console.log("allah");
+console.log("peygamber");
