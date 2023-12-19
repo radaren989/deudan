@@ -9,6 +9,9 @@ form.addEventListener('submit', (e) => {
 });
 
 const setError = (element, message) => {
+  if (element.classList.contains('border-danger')) {
+    return;
+  }
   element.classList.add('border-danger');
 
   const div = document.createElement('div');
@@ -18,7 +21,11 @@ const setError = (element, message) => {
 };
 
 const setSucces = (element) => {
+  if (!element.classList.contains('border-danger')) {
+    return;
+  }
   element.classList.remove('border-danger');
+  element.parentElement.querySelector(':nth-child(3)').remove();
 };
 
 const validateInputs = () => {
