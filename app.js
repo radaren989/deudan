@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
-const loginRoute = require("./routes/loginRouter");
+const loginRouter = require("./routes/loginRouter");
+const registerRouter = require("./routes/registerRouter");
 
-app.use("/login", loginRoute);
+app.use(express.static(__dirname));
+app.use("/login", loginRouter);
+app.use("/register", registerRouter);
 
 app.listen(5000);
