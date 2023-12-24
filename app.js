@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
-const routerAuth = require("./routes/auth");
+const loginRouter = require("./routes/loginRouter");
+const registerRouter = require("./routes/registerRouter");
 
-app.use("/", routerAuth);
-
-app.listen(3131);
+app.use(express.static(__dirname));
+app.use("/login", loginRouter);
+app.use("/register", registerRouter);
