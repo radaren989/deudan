@@ -95,6 +95,7 @@ const routePage = (response) => {
             break;
         case 400: //unsuccessful
             window.alert("Hesap Oluşturma Hatası!");
+            break;
         default:
             console.error("Unhandled status code:", response.status);
             break;

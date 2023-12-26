@@ -75,6 +75,10 @@ const routePage = (response) => {
             break;
         case 400: //unsuccessful
             window.alert("Email veya sifre hatali!");
+            break;
+        case 401:
+            window.alert("E-postanızı doğrulayın!");
+            break;
         default:
             console.error("Unhandled status code:", response.status);
             break;

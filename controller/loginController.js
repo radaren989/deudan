@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const pool = require("../db/db");
 const saltRounds = 10;
 
-const checkLogin = (req, res) => {
+const checkLogin = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         console.log("Blank fields");
@@ -16,14 +16,17 @@ const checkLogin = (req, res) => {
         return res.status(400).send("Non-valid Email!");
     }
 
-    if (checkPassword(email, password) && checkEmailValidification(email)) {
-        const id = getUserId(email);
+    if (
+        (await checkPassword(email, password)) &&
+        (await checkEmailValification(email))
+    ) {
+        const id = await getUserId(email);
         if (id != null) {
             req.session.user = { id };
             return res.status(200).send("successful");
         }
     }
-    res.status(400).send("unsuccessful");
+    res.status(401).send("unsuccessful");
 };
 const getUserId = async (email) => {
     try {
@@ -40,7 +43,7 @@ const getUserId = async (email) => {
         throw error;
     }
 };
-const checkEmailValidification = async (email) => {
+const checkEmailValification = async (email) => {
     try {
         const result = await pool.query(
             "SELECT used FROM verification_tokens WHERE email=$1",
@@ -48,7 +51,8 @@ const checkEmailValidification = async (email) => {
         );
 
         if (result.rows.length > 0) {
-            return result.rows[0].passwrd;
+            console.log(result.rows[0].used);
+            return result.rows[0].used;
         }
         return false;
     } catch (error) {
