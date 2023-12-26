@@ -6,22 +6,21 @@ const createAccount = async (req, res) => {
     const { name, surname, email, password } = req.body;
     if (!name || !surname || !email || !password) {
         console.log("blank fields");
-        return res.sendFile(path.resolve("./layouts/register.html"));
+        return res.status(204).send("Blank Fields!");
     }
     if (!isEmailValid(email)) {
         console.log("non valid email");
-        return res.sendFile(path.resolve("./layouts/register.html"));
+        return res.status(204).send("Non-valid Email!");
     }
     if (await isAlreadyExist(email)) {
         console.log("already registered");
-        return res.sendFile(path.resolve("./layouts/login.html"));
+        return res.status(204).send("Account Already Exist!");
     }
-    console.log(name, surname, email, password);
     await pool.query(
         "INSERT INTO account (name, surname, email, passwrd) values($1,$2,$3,$4)",
         [name, surname, email, password]
     );
-    res.send("selam");
+    res.status(201).send("Account Created!");
 };
 
 async function isAlreadyExist(email) {
@@ -30,7 +29,6 @@ async function isAlreadyExist(email) {
             "SELECT * FROM account WHERE email = $1",
             [email]
         );
-        console.log(result.rowCount);
         if (result.rowCount > 0) {
             return true;
         } else {
@@ -41,6 +39,7 @@ async function isAlreadyExist(email) {
         throw error;
     }
 }
+
 function isEmailValid(email) {
     const domainPattern = /@ogr\.deu\.edu\.tr$/;
 
