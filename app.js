@@ -20,11 +20,13 @@ app.use(
 const loginRouter = require("./routes/loginRouter");
 const registerRouter = require("./routes/registerRouter");
 const verifyRouter = require("./routes/verifyRouter");
+const apiRouter = require("./routes/apiRouter");
 const mainRouter = require("./routes/mainRouter");
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/verify", verifyRouter);
+app.use("/api", apiRouter);
 app.use("/", mainRouter);
 
 app.get("/view-sessions", (req, res) => {

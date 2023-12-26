@@ -93,7 +93,7 @@ const routePage = (response) => {
             window.location.href = "/login";
             window.alert("HEsabı doğrula");
             break;
-        case 204: //unsuccessful
+        case 400: //unsuccessful
             window.alert("Hesap Oluşturma Hatası!");
         default:
             console.error("Unhandled status code:", response.status);
