@@ -1,3 +1,11 @@
+INSERT INTO categories (cat_id, "name", parent_cat_id)
+VALUES (1, 'electronics', 1);
+-- CREATE TABLE "categories"(
+--     cat_id SERIAL PRIMARY KEY,
+--     name VARCHAR(50) NOT NULL,
+--     parent_cat_id SERIAL,
+--     FOREIGN KEY (parent_cat_id) REFERENCES categories(cat_id)
+-- );
 -- CREATE VIEW advert_list_view AS
 -- SELECT ad.ad_id AS advert_id,
 --     ad.title AS advert_title,
@@ -58,12 +66,6 @@
 --     photo_1 BYTEA,
 --     photo_2 BYTEA,
 --     photo_3 BYTEA
--- );
--- CREATE TABLE "categories"(
---     cat_id SERIAL PRIMARY KEY,
---     name VARCHAR(50) NOT NULL,
---     parent_cat_id SERIAL,
---     FOREIGN KEY (parent_cat_id) REFERENCES categories(cat_id)
 -- );
 -- CREATE TABLE account(
 --     user_id SERIAL PRIMARY KEY,
