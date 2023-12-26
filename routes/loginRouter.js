@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { getLogin } = require("../controller/loginController");
+const { getLogin, checkLogin } = require("../controller/loginController");
 
-router.get("/", getLogin);
+router.get("/", getLogin).post("/", checkLogin);
 
 module.exports = router;

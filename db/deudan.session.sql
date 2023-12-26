@@ -1,7 +1,6 @@
 DELETE FROM verification_tokens;
 DELETE FROM account;
--- SELECT *
--- FROM account;
+-- SELECT * FROM account;
 -- CREATE TABLE verification_tokens (
 --     id SERIAL PRIMARY KEY,
 --     email VARCHAR(255) NOT NULL,
@@ -55,5 +54,5 @@ DELETE FROM account;
 --     name VARCHAR(30) NOT NULL,
 --     surname VARCHAR(35) NOT NULL,
 --     email VARCHAR(255) NOT NULL,
---     passwrd BYTEA NOT NULL
+--     passwrd VARCHAR(255) NOT NULL
 -- );

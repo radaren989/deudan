@@ -22,7 +22,7 @@ const verifyEmail = async (req, res) => {
             // Optionally, you might redirect the user to a success page
             // res.redirect('/verification-success');
             res.status(200).send(
-                "<h1 href='http://localhost:5000/login'>Giriş Ekranı</h1>"
+                "<a href='http://localhost:5000/login'>Giriş Ekranı</a>"
             );
         } else {
             console.log("Invalid or expired token.");
