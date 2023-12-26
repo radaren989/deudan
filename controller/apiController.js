@@ -20,6 +20,7 @@ const getAccounts = async (req, res) => {
         res.status(500).json({ success: false, message: error });
     }
 };
+
 const getAdvertJson = async (number, parameter) => {
     try {
         const data = await pool.query(

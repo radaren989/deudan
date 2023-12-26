@@ -22,7 +22,8 @@ const checkLogin = async (req, res) => {
     ) {
         const id = await getUserId(email);
         if (id != null) {
-            req.session.user = { id };
+            req.session.auth = id;
+            req.session.email = email;
             return res.status(200).send("successful");
         }
     }
@@ -51,7 +52,6 @@ const checkEmailValification = async (email) => {
         );
 
         if (result.rows.length > 0) {
-            console.log(result.rows[0].used);
             return result.rows[0].used;
         }
         return false;
