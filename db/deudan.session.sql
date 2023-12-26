@@ -1,5 +1,21 @@
-DELETE FROM verification_tokens;
-DELETE FROM account;
+-- CREATE VIEW advert_list_view AS
+-- SELECT ad.ad_id AS advert_id,
+--     ad.title AS advert_title,
+--     dc.price AS price,
+--     ph.photo_0 AS photo,
+--     categories.name AS category,
+--     dc.ad_date AS ad_date,
+--     ac.name AS user_name,
+--     ac.surname AS user_surname
+-- FROM advert ad
+--     JOIN "description" dc ON ad.desc_id = dc.desc_id
+--     JOIN photos ph ON dc.photo_id = ph.photo_id
+--     JOIN advert_owner ac_o ON ad.ad_id = ac_o.ad_id
+--     JOIN account ac ON ac_o.user_id = ac.user_id
+--     JOIN categories ON ad.cat_id = categories.cat_id;
+-- Replace with your actual category column and table
+-- DELETE FROM verification_tokens;
+-- DELETE FROM account;
 -- SELECT * FROM account;
 -- CREATE TABLE verification_tokens (
 --     id SERIAL PRIMARY KEY,

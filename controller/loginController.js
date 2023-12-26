@@ -16,7 +16,7 @@ const checkLogin = (req, res) => {
         return res.status(400).send("Non-valid Email!");
     }
 
-    if (checkPassword(email, password) && checkEmailValification(email)) {
+    if (checkPassword(email, password) && checkEmailValidification(email)) {
         const id = getUserId(email);
         if (id != null) {
             req.session.user = { id };
@@ -40,7 +40,7 @@ const getUserId = async (email) => {
         throw error;
     }
 };
-const checkEmailValification = async (email) => {
+const checkEmailValidification = async (email) => {
     try {
         const result = await pool.query(
             "SELECT used FROM verification_tokens WHERE email=$1",
