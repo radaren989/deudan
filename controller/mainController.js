@@ -1,5 +1,7 @@
+const path = require("path");
+
 const getMain = (req, res) => {
-    res.send("31");
+    res.sendFile(path.resolve("./layouts/index.html"));
 };
 
 module.exports = { getMain };
