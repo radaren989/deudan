@@ -1,6 +1,13 @@
--- DELETE FROM account;
-SELECT *
-FROM account;
+DELETE FROM verification_tokens;
+DELETE FROM account;
+-- SELECT *
+-- FROM account;
+-- CREATE TABLE verification_tokens (
+--     id SERIAL PRIMARY KEY,
+--     email VARCHAR(255) NOT NULL,
+--     token VARCHAR(255) NOT NULL,
+--     used BOOLEAN DEFAULT false
+-- );
 -- CREATE TABLE adver_owner(
 --     user_id SERIAL NOT NULL,
 --     ad_id SERIAL NOT NULL,
