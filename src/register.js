@@ -1,13 +1,15 @@
 const form = document.getElementById('form');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
-const name = document.getElementById('isim');
-const surname = document.getElementById('soyisim');
+const name = document.getElementById('name');
+const surname = document.getElementById('surname');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  validateInputs();
+  if (validateInputs()) {
+    createPost();
+  }
 });
 
 const setError = (element, message) => {
@@ -31,6 +33,7 @@ const setSucces = (element) => {
 };
 
 const validateInputs = () => {
+  let flag = true;
   const emailValue = email.value.trim();
   const passwordValue = password.value.trim();
   const nameValue = name.value.trim();
@@ -38,23 +41,48 @@ const validateInputs = () => {
 
   if (emailValue.substring(emailValue.length - 15) !== '@ogr.deu.edu.tr') {
     setError(email, '@ogr.deu.edu.tr ile bitmeli');
+    flag = false;
   } else {
     setSucces(email);
   }
 
   if (passwordValue.length < 8) {
     setError(password, 'sifre 8 karekterden uzun olmali');
+    flag = false;
   } else {
     setSucces(password);
   }
   if (nameValue === '') {
     setError(nameValue, 'lutfen isim giriniz');
+    flag = false;
   } else {
     setSucces(name);
   }
   if (surnameValue === '') {
     setError(surnameValue, 'lutfen soyisim giriniz');
+    flag = false;
   } else {
     setSucces(surname);
   }
+  return flag;
+};
+
+const createPost = () => {
+  const url = window.location.href;
+  const data = {
+    name: name.value,
+    surname: surname.value,
+    email: email.value,
+    password: password.value,
+  };
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error('Error:', error));
 };
