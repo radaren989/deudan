@@ -5,7 +5,9 @@ const password = document.getElementById('password');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  validateInputs();
+  if (validateInputs()) {
+    createPost();
+  }
 });
 
 const setError = (element, message) => {
@@ -29,18 +31,52 @@ const setSucces = (element) => {
 };
 
 const validateInputs = () => {
+  let flag = true;
   const emailValue = email.value.trim();
   const passwordValue = password.value.trim();
 
   if (emailValue.substring(emailValue.length - 15) !== '@ogr.deu.edu.tr') {
     setError(email, '@ogr.deu.edu.tr ile bitmeli');
+    flag = false;
   } else {
     setSucces(email);
   }
 
   if (passwordValue.length < 8) {
     setError(password, 'sifre 8 karekterden uzun olmali');
+    flag = false;
   } else {
     setSucces(password);
+  }
+  return flag;
+};
+
+const createPost = () => {
+  const url = window.location.href;
+  const data = {
+    email: email.value,
+    password: password.value,
+  };
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => routePage(response))
+    .catch((error) => console.error('Error:', error));
+};
+
+const routePage = (response) => {
+  switch (response.status) {
+    case 201: //successful
+      window.location.href = '/';
+      break;
+    case 204: //unsuccessful
+      window.alert('Email veya sifre hatali!');
+    default:
+      console.error('Unhandled status code:', response.status);
+      break;
   }
 };
