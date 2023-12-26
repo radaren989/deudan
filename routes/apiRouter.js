@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { getAdvert } = require("../controller/apiController");
+const { getAdverts, getAccounts } = require("../controller/apiController");
 
-router.get("/listAdvert/:number/:parameter", getAdvert);
+router
+    .get("/listAdvert/:number/:parameter", getAdverts)
+    .get("/accounts", getAccounts);
 
 module.exports = router;
