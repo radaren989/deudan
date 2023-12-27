@@ -5,8 +5,8 @@ const getUpload = (req, res) => {
 };
 
 const postAdvert = (req, res) => {
-    const { file } = req.body;
-    console.log(file);
+    console.log(req.body);
+    console.log(req.files);
     res.status(200);
 };
 

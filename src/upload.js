@@ -1,5 +1,8 @@
 const form = document.getElementById("form");
-const image = document.getElementById("image1");
+const image1 = document.getElementById("image1");
+const image2 = document.getElementById("image2");
+const image3 = document.getElementById("image3");
+const image4 = document.getElementById("image4");
 const title = document.getElementById("title");
 const description = document.getElementById("description");
 const price = document.getElementById("price");
@@ -61,26 +64,34 @@ const validateInputs = () => {
     return flag;
 };
 
-const createPost = () => {
+const createPost = async () => {
     const url = window.location.href;
-    const file = image.files[0];
-    console.log(file);
-    const data = {
-        image: file,
-        title: title.value,
-        description: description.value,
-        price: price.value,
-        category: category.value,
-    };
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    })
-        .then((response) => routePage(response))
-        .catch((error) => console.error("Error:", error));
+
+    // Create a FormData object
+    const formData = new FormData();
+
+    // Append the file and other form data to the FormData object
+    formData.append("image", image1.files[0]);
+    formData.append("image", image2.files[0]);
+    formData.append("image", image3.files[0]);
+    formData.append("image", image4.files[0]);
+    formData.append("title", title.value);
+    formData.append("description", description.value);
+    formData.append("price", price.value);
+    formData.append("category", category.value);
+
+    try {
+        // Use the fetch API to send the FormData
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+        });
+
+        // Handle the response
+        await routePage(response);
+    } catch (error) {
+        console.error("Error:", error);
+    }
 };
 
 const routePage = (response) => {

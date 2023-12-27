@@ -1,12 +1,12 @@
 const express = require("express");
 const session = require("express-session");
 const multer = require("multer");
-const { checkSession, validateCookie } = require("./controller/sessionMidware");
+const { checkSession } = require("./controller/sessionMidware");
 const app = express();
 const port = 5000;
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 
 //Middleware
 app.use(express.json());
@@ -33,7 +33,7 @@ app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/verify", verifyRouter);
 app.use("/api", apiRouter);
-app.use("/upload", upload.single("image"), uploadRouter);
+app.use("/upload", upload.array("image", 4), uploadRouter);
 app.use("/", checkSession, mainRouter);
 
 app.get("/view-sessions", (req, res) => {
