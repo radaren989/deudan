@@ -1,10 +1,6 @@
-INSERT INTO categories (cat_id, "name", parent_cat_id)
-VALUES (1, 'electronics', 1);
 -- CREATE TABLE "categories"(
 --     cat_id SERIAL PRIMARY KEY,
 --     name VARCHAR(50) NOT NULL,
---     parent_cat_id SERIAL,
---     FOREIGN KEY (parent_cat_id) REFERENCES categories(cat_id)
 -- );
 -- CREATE VIEW advert_list_view AS
 -- SELECT ad.ad_id AS advert_id,
@@ -31,7 +27,7 @@ VALUES (1, 'electronics', 1);
 --     token VARCHAR(255) NOT NULL,
 --     used BOOLEAN DEFAULT false
 -- );
--- CREATE TABLE adver_owner(
+-- CREATE TABLE advert_owner(
 --     user_id SERIAL NOT NULL,
 --     ad_id SERIAL NOT NULL,
 --     FOREIGN KEY (user_id) REFERENCES account(user_id),
