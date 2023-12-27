@@ -12,13 +12,27 @@
           margin-top: 180px; 
         }
         .custom-top-margin2 {
-            margin-top: 300px; 
-          }
+            margin-top: 180px; 
+        }
+        .custom-top-margin3 {
+            margin-top: 20px; 
+        }
         .center-content {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .image-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
         }
       </style>
     
@@ -32,9 +46,28 @@
     </nav>
     <div class="row">
         <div class="col-md-5 custom-top-margin2" style="overflow: hidden;">
-            <div class="center-content">
-                <label for="image">Ürün Resmi Yükle:</label>
-                <input type="file" id="image" name="image" accept="image/*">
+            <h2 class="text-center">Ürün Resmi Ekle</h2>
+            <div class="row">
+                <div class="col-md-6 custom-top-margin3">
+                    <div class="center-content image-box" id="box1">
+                        <label for="image1">Resim 1 Yükle</label>
+                        <input type="file" id="image1" name="image" accept="image/*" style="display:none;">
+                    </div>
+                    <div class="center-content image-box" id="box2">
+                        <label for="image3">Resim 3 Yükle</label>
+                        <input type="file" id="image3" name="image" accept="image/*" style="display:none;">
+                    </div>
+                </div>
+                <div class="col-md-6 custom-top-margin3">
+                    <div class="center-content image-box" id="box3">
+                        <label for="image2">Resim 2 Yükle</label>
+                        <input type="file" id="image2" name="image" accept="image/*" style="display:none;">
+                    </div>
+                    <div class="center-content image-box" id="box4">
+                        <label for="image4">Resim 4 Yükle</label>
+                        <input type="file" id="image4" name="image" accept="image/*" style="display:none;">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-5 offset-1 custom-top-margin">
