@@ -31,7 +31,7 @@
         <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">
                 <img
-                    src="../assets/img/logo.png"
+                    src="/docs/4.6/assets/brand/bootstrap-solid.svg"
                     width="50"
                     height="50"
                     class="d-inline-block align-top"
@@ -41,7 +41,7 @@
             </a>
         </nav>
         <div class="row">
-            <div class="col-md-5 offset-1 custom-top-margin">
+            <div id="userInfo" class="col-md-5 offset-1 custom-top-margin">
                 <h2 class="text-center">Profil Özellikleri</h2>
                 <hr />
                 <div>
@@ -63,8 +63,8 @@
             <div class="col-md-5 custom-top-margin3" style="overflow: hidden">
                 <h2 class="text-center">İlanlar</h2>
                 <div class="row mt-5">
-                    <section class="col-sm-8">
-                        <article class="row mb-3">
+                    <section id="displayAdverts" class="col-sm-8">
+                        <article id="12" class="row mb-3">
                             <div class="col-8">
                                 <img
                                     class="rounded-circle"
@@ -78,8 +78,10 @@
                                 </span>
                                 <h6 class="mt-2">
                                     <strong>
-                                        White Sox Announce Coaching Staff for
-                                        2021 Season
+                                        <a href="#"
+                                            >White Sox Announce Coaching Staff
+                                            for 2021 Season</a
+                                        >
                                     </strong>
                                 </h6>
                                 <p>
@@ -132,6 +134,12 @@
                                     <li class="list-inline-item">
                                         26 Mart 2024
                                     </li>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-dark btn-block"
+                                    >
+                                        ilani sil
+                                    </button>
                                     <li class="list-inline-item">
                                         <i class="far fa-star"></i>
                                     </li>
