@@ -2,6 +2,7 @@ let currentPage = 1;
 const previousBtn = document.getElementById("previousPage");
 const nextBtn = document.getElementById("nextPage");
 const displayAdverts = document.getElementById("displayAdverts");
+const profile = document.getElementById("profile");
 
 displayAdvertList();
 
@@ -83,13 +84,15 @@ function previousPage() {
 }
 
 function goToAdvert(e) {
-    const advertId = e.target.parentElement.parentElement.parentElement.id;
+    const advertId =
+        e.target.parentElement.parentElement.parentElement.parentElement.id;
+    console.log(advertId);
 
     fetch(`/advert/${advertId}`, {
         method: "GET",
-    }).then((response) => routePage(response, advertId));
+    }).then((response) => routeAdvertPage(response, advertId));
 }
-const routePage = (response, id) => {
+const routeAdvertPage = (response, id) => {
     switch (response.status) {
         case 200: //successful
             window.location.href = `/advert/${id}`;
@@ -105,10 +108,34 @@ const routePage = (response, id) => {
             break;
     }
 };
+
+function goToProfile() {
+    fetch("/profile", {
+        method: "GET",
+    }).then((response) => routeProfilePage(response));
+}
+const routeProfilePage = (response, id) => {
+    switch (response.status) {
+        case 200: //successful
+            window.location.href = "/profile";
+            break;
+        case 400: //un successful
+            window.alert("hata");
+            break;
+        case 401:
+            window.alert("hata");
+            break;
+        default:
+            console.error("Unhandled status code:", response.status);
+            break;
+    }
+};
+
 function init() {
     previousBtn.addEventListener("click", previousPage);
     nextBtn.addEventListener("click", nextPage);
     displayAdverts.addEventListener("click", goToAdvert);
+    profile.addEventListener("click", goToProfile);
 }
 
 init();
