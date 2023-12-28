@@ -2,27 +2,21 @@ let currentPage = 1;
 previousBtn = document.getElementById('previousPage');
 nextBtn = document.getElementById('nextPage');
 
-const data = {
-  success: true,
-  data: [
-    {
-      advert_id: 1,
-      advert_title: 'title',
-      price: 'price',
-      category: 'tugrul.demirozer@ogr.deu.edu.tr',
-      passwrd: '$2b$10$YLhjIG2erq10Ayikfo5/JuL4f1NGG6LVuyzOUXoEN9WzNFEBc/lSK',
-    },
-    {
-      user_id: 42,
-      name: 'Vildan',
-      surname: 'Çolak',
-      email: 'vildan.colak@ogr.deu.edu.tr',
-      passwrd: '$2b$10$pRthg2pXQBvn7CD5Mn1SuesuJBG5Y59byNT1NE/I.NrL2shwKjoge',
-    },
-  ],
-};
-console.log(data.data[2]);
-displayAdvert(1);
+displayAdvertList();
+
+function displayAdvertList() {
+  fetch(`url/${currentPage}`)
+    .then((response) => response.json())
+    .then((data) => {
+      for (let i = 0; i < 10; i++) {
+        if (data.data[i]) {
+          displayAdvert(data.data[i]);
+        }
+      }
+    });
+}
+
+//displayAdvert(1);
 function displayAdvert(item) {
   const advertsParent = document.getElementById('displayAdverts');
   const advertDisplay = document.createElement('article');
@@ -30,21 +24,19 @@ function displayAdvert(item) {
   <div class="col-8">
       
       <span class="small ml-1"
-          >${data.data[0]}
+          >${item.user_name + item.user_surname}
       </span>
       <h6 class="mt-2">
           <strong>
-              ${data.data[0].advert_title}
+              ${item.advert_title}
           </strong>
       </h6>
       <p>
-          Life is a journey of twists and turns, peaks
-          and valleys, mountains to climb and oceans
-          to explore.
+          ${item.details}
       </p>
       <ul class="list-inline small">
           <li class="list-inline-item">
-              26 Mart 2024
+              ${item.ad_date}
           </li>
           <li class="list-inline-item">
               <i class="far fa-star"></i>
@@ -62,18 +54,9 @@ function displayAdvert(item) {
   advertsParent.appendChild(advertDisplay);
 }
 
-// generateAdvert();
-
-// function generateAdvert() {
-//   fetch('index.json')
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data.data[0].title);
-//     });
-// }
-
 function updatePageNumber() {
   document.getElementById('pageNumber').innerText = currentPage;
+  displayAdvertList();
 }
 
 function nextPage() {
