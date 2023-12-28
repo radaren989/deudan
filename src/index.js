@@ -5,7 +5,7 @@ nextBtn = document.getElementById("nextPage");
 displayAdvertList();
 
 function displayAdvertList() {
-    fetch(`url/${currentPage}`)
+    fetch(`api/listAdvert/${currentPage}`)
         .then((response) => response.json())
         .then((data) => {
             for (let i = 0; i < 10; i++) {

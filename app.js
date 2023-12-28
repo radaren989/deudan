@@ -28,11 +28,13 @@ const verifyRouter = require("./routes/verifyRouter");
 const apiRouter = require("./routes/apiRouter");
 const mainRouter = require("./routes/mainRouter");
 const uploadRouter = require("./routes/uploadRouter");
+const advertRouter = require("./routes/advertRouter");
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/verify", verifyRouter);
 app.use("/api", apiRouter);
+app.use("/advert", advertRouter);
 app.use("/upload", upload.array("image", 4), uploadRouter);
 app.use("/", mainRouter);
 
