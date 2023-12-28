@@ -1,7 +1,22 @@
 const pool = require("../db/db");
 
+//profile
+const getProfileInfo = async (req, res) => {
+    try {
+        if (req.session) {
+            const id = req.session.auth;
+            const result = await getProfileInfoJson(id);
+            console.log(result);
+            res.status(200).json({ succes: true, data: result });
+        }
+    } catch (error) {
+        console.error("Error: Fetching profile info: ", error);
+        throw error;
+    }
+};
+
+//advert page
 const getSingleAdvert = async (req, res) => {
-    console.log("asd");
     try {
         if (req.params) {
             const { id } = req.params;
@@ -14,6 +29,7 @@ const getSingleAdvert = async (req, res) => {
         }
     } catch (error) {
         console.error("Error: Fetching advert from database: ", error);
+        res.status(500).json({ success: false, message: error });
         throw error;
     }
 };
@@ -27,6 +43,7 @@ const getAdverts = async (req, res) => {
     } catch (error) {
         console.error("Error adverts databse: ", error);
         res.status(500).json({ success: false, message: error });
+        throw error;
     }
 };
 
@@ -38,6 +55,29 @@ const getAccounts = async (req, res) => {
     } catch (error) {
         console.error("Error account database: ", error);
         res.status(500).json({ success: false, message: error });
+        throw error;
+    }
+};
+
+const getProfileInfoJson = async (id) => {
+    try {
+        const accountResult = await pool.query(
+            "SELECT name,surname,email FROM account WHERE user_id = $1 ",
+            [parseInt(id)]
+        );
+        const advertsResult = await pool.query(
+            "SELECT * FROM advert_list_view WHERE user_id = $1",
+            [parseInt(id)]
+        );
+
+        const result = {
+            profile: accountResult.rows[0],
+            adverts: advertsResult.rows,
+        };
+        return result;
+    } catch (error) {
+        console.error("API DATABASE ERROR: ", error);
+        throw error;
     }
 };
 
@@ -49,7 +89,7 @@ const getAdvertsJson = async (number, parameter) => {
         );
         return data.rows;
     } catch (error) {
-        console.error("API DATABASE ERRO: ", error);
+        console.error("API DATABASE ERROR: ", error);
         throw error;
     }
 };
@@ -64,4 +104,4 @@ const getAccountJson = async () => {
     }
 };
 
-module.exports = { getAdverts, getAccounts, getSingleAdvert };
+module.exports = { getAdverts, getAccounts, getSingleAdvert, getProfileInfo };
