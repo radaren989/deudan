@@ -33,7 +33,7 @@ app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/verify", verifyRouter);
 app.use("/api", apiRouter);
-app.use("/upload", upload.array("image", 4), uploadRouter);
+app.use("/upload", checkSession, upload.array("image", 4), uploadRouter);
 app.use("/", checkSession, mainRouter);
 
 app.get("/view-sessions", (req, res) => {
