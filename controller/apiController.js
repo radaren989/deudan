@@ -2,8 +2,8 @@ const pool = require("../db/db");
 
 const getAdverts = async (req, res) => {
     try {
-        const { number, parameter } = req.params;
-        const data = await getAdvertJson(parseInt(number), parameter);
+        const { number } = req.params;
+        const data = await getAdvertJson(parseInt(number));
         res.json({ success: true, data: data });
     } catch (error) {
         console.error("Error adverts databse: ", error);
@@ -24,8 +24,8 @@ const getAccounts = async (req, res) => {
 const getAdvertJson = async (number, parameter) => {
     try {
         const data = await pool.query(
-            "SELECT * FROM advert_list_view ORDER BY $1 OFFSET $2 LIMIT $3",
-            [parameter, 10 * (number - 1), number * 10]
+            "SELECT * FROM advert_list_view OFFSET $1 LIMIT $2",
+            [10 * (number - 1), number * 10]
         );
         return data.rows;
     } catch (error) {

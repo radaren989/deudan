@@ -1,26 +1,27 @@
 let currentPage = 1;
-previousBtn = document.getElementById('previousPage');
-nextBtn = document.getElementById('nextPage');
+previousBtn = document.getElementById("previousPage");
+nextBtn = document.getElementById("nextPage");
 
 displayAdvertList();
 
 function displayAdvertList() {
-  fetch(`url/${currentPage}`)
-    .then((response) => response.json())
-    .then((data) => {
-      for (let i = 0; i < 10; i++) {
-        if (data.data[i]) {
-          displayAdvert(data.data[i]);
-        }
-      }
-    });
+    fetch(`api/listAdvert/${currentPage}`)
+        .then((response) => response.json())
+        .then((data) => {
+            for (let i = 0; i < 10; i++) {
+                if (data.data[i]) {
+                    displayAdvert(data.data[i]);
+                }
+            }
+        });
 }
 
 //displayAdvert(1);
 function displayAdvert(item) {
-  const advertsParent = document.getElementById('displayAdverts');
-  const advertDisplay = document.createElement('article');
-  advertDisplay.innerHTML = `<article class="row mb-3">
+    const advertsParent = document.getElementById("displayAdverts");
+    const advertDisplay = document.createElement("article");
+    console.log(typeof item.ad_date);
+    advertDisplay.innerHTML = `<article class="row mb-3">
   <div class="col-8">
       
       <span class="small ml-1"
@@ -45,35 +46,35 @@ function displayAdvert(item) {
   </div>
   <div class="col-4">
       <img
-          src="https://picsum.photos/id/55/400/250"
+          src=${item.photo}
           alt=""
           class="w-100"
       />
   </div>
 </article>`;
-  advertsParent.appendChild(advertDisplay);
+    advertsParent.appendChild(advertDisplay);
 }
 
 function updatePageNumber() {
-  document.getElementById('pageNumber').innerText = currentPage;
-  displayAdvertList();
+    document.getElementById("pageNumber").innerText = currentPage;
+    displayAdvertList();
 }
 
 function nextPage() {
-  currentPage++;
-  updatePageNumber();
+    currentPage++;
+    updatePageNumber();
 }
 
 function previousPage() {
-  if (currentPage > 1) {
-    currentPage--;
-    updatePageNumber();
-  }
+    if (currentPage > 1) {
+        currentPage--;
+        updatePageNumber();
+    }
 }
 
 function init() {
-  previousBtn.addEventListener('click', previousPage);
-  nextBtn.addEventListener('click', nextPage);
+    previousBtn.addEventListener("click", previousPage);
+    nextBtn.addEventListener("click", nextPage);
 }
 
 init();

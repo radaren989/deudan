@@ -33,8 +33,8 @@ app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/verify", verifyRouter);
 app.use("/api", apiRouter);
-app.use("/upload", checkSession, upload.array("image", 4), uploadRouter);
-app.use("/", checkSession, mainRouter);
+app.use("/upload", upload.array("image", 4), uploadRouter);
+app.use("/", mainRouter);
 
 app.get("/view-sessions", (req, res) => {
     // Note: This is for demonstration purposes only. Avoid using this in production.
