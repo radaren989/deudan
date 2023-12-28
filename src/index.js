@@ -112,6 +112,7 @@ const routeAdvertPage = (response, id) => {
 function goToProfile() {
     fetch("/profile", {
         method: "GET",
+        headers: {},
     }).then((response) => routeProfilePage(response));
 }
 const routeProfilePage = (response) => {
