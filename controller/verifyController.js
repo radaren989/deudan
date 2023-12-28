@@ -17,8 +17,6 @@ const verifyEmail = async (req, res) => {
 
         // Check if any rows were affected by the update
         if (result.rowCount > 0) {
-            console.log("Verification successful:", result.rows[0]);
-
             // Optionally, you might redirect the user to a success page
             // res.redirect('/verification-success');
             res.status(200).send(

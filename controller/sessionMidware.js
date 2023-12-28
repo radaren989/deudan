@@ -27,11 +27,5 @@ const checkIdAndEmail = async (id, email) => {
         throw error;
     }
 };
-const validateCookie = (req, res, next) => {
-    const { cookies } = req;
-    if ("session_id" in cookies) {
-        console.log("session id exist");
-    } else res.status(403).send({ msg: "Not Authenticated" });
-};
 
-module.exports = { checkSession, validateCookie };
+module.exports = { checkSession };
