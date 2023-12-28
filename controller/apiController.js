@@ -1,6 +1,7 @@
 const pool = require("../db/db");
 
 const getSingleAdvert = async (req, res) => {
+    console.log("asd");
     try {
         if (req.params) {
             const { id } = req.params;

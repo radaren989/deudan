@@ -30,7 +30,7 @@ function displayAdvert(item) {
       </span>
       <h6 class="mt-2">
           <strong>
-              ${item.advert_title}
+              <a class="underline-hover" href="#">${item.advert_title}</a>
           </strong>
       </h6>
       <p>
@@ -114,7 +114,7 @@ function goToProfile() {
         method: "GET",
     }).then((response) => routeProfilePage(response));
 }
-const routeProfilePage = (response, id) => {
+const routeProfilePage = (response) => {
     switch (response.status) {
         case 200: //successful
             window.location.href = "/profile";
