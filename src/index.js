@@ -36,7 +36,7 @@ function displayAdvert(item) {
       </p>
       <ul class="list-inline small">
           <li class="list-inline-item">
-              ${item.ad_date}
+              ${formatISODate(item.ad_date)}
           </li>
           <li class="list-inline-item">
               <i class="far fa-star"></i>
@@ -45,13 +45,23 @@ function displayAdvert(item) {
   </div>
   <div class="col-4">
       <img
-          src="https://picsum.photos/id/55/400/250"
-          alt=""
-          class="w-100"
+          ${item.image}
       />
   </div>
 </article>`;
   advertsParent.appendChild(advertDisplay);
+}
+
+function formatISODate(isoDateTime) {
+  const date = new Date(isoDateTime);
+
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+  const dateTimeFormat = new Intl.DateTimeFormat('tr-TR', options);
+
+  const formattedDate = dateTimeFormat.format(date);
+
+  return formattedDate;
 }
 
 function updatePageNumber() {
