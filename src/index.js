@@ -5,7 +5,7 @@ nextBtn = document.getElementById("nextPage");
 displayAdvertList();
 
 function displayAdvertList() {
-    fetch(`api/listAdvert/${currentPage}`)
+    fetch(`url/${currentPage}`)
         .then((response) => response.json())
         .then((data) => {
             for (let i = 0; i < 10; i++) {
@@ -20,7 +20,6 @@ function displayAdvertList() {
 function displayAdvert(item) {
     const advertsParent = document.getElementById("displayAdverts");
     const advertDisplay = document.createElement("article");
-    console.log(typeof item.ad_date);
     advertDisplay.innerHTML = `<article class="row mb-3">
   <div class="col-8">
       
@@ -37,7 +36,7 @@ function displayAdvert(item) {
       </p>
       <ul class="list-inline small">
           <li class="list-inline-item">
-              ${item.ad_date}
+              ${formatISODate(item.ad_date)}
           </li>
           <li class="list-inline-item">
               <i class="far fa-star"></i>
@@ -46,13 +45,23 @@ function displayAdvert(item) {
   </div>
   <div class="col-4">
       <img
-          src=${item.photo}
-          alt=""
-          class="w-100"
+          ${item.image}
       />
   </div>
 </article>`;
     advertsParent.appendChild(advertDisplay);
+}
+
+function formatISODate(isoDateTime) {
+    const date = new Date(isoDateTime);
+
+    const options = { year: "numeric", month: "long", day: "numeric" };
+
+    const dateTimeFormat = new Intl.DateTimeFormat("tr-TR", options);
+
+    const formattedDate = dateTimeFormat.format(date);
+
+    return formattedDate;
 }
 
 function updatePageNumber() {
