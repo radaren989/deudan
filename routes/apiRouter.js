@@ -8,7 +8,7 @@ const {
 } = require("../controller/apiController");
 
 router
-    .get("/listAdvert/:number", getAdverts)
+    .get("/listAdvert/:number/:category", getAdverts)
     .get("/accounts", getAccounts)
     .get("/advert/:id", getSingleAdvert)
     .get("/profile", getProfileInfo);

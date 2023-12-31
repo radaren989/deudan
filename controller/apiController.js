@@ -6,7 +6,6 @@ const getProfileInfo = async (req, res) => {
         if (req.session) {
             const id = req.session.auth;
             const result = await getProfileInfoJson(id);
-            console.log(result);
             res.status(200).json({ succes: true, data: result });
         }
     } catch (error) {
@@ -24,7 +23,6 @@ const getSingleAdvert = async (req, res) => {
                 "SELECT * FROM advert_view WHERE advert_id = $1",
                 [parseInt(id)]
             );
-            console.log(result.rows[0]);
             res.json({ success: true, data: result.rows[0] });
         }
     } catch (error) {
@@ -37,8 +35,14 @@ const getSingleAdvert = async (req, res) => {
 //main page
 const getAdverts = async (req, res) => {
     try {
-        const { number } = req.params;
-        const data = await getAdvertsJson(parseInt(number));
+        const { number, category } = req.params;
+        console.log(category);
+        let data = null;
+        if (category !== "null") {
+            data = await getAdvertsJson(parseInt(number), category);
+        } else {
+            data = await getAdvertsJson(parseInt(number), null);
+        }
         res.json({ success: true, data: data });
     } catch (error) {
         console.error("Error adverts databse: ", error);
@@ -62,7 +66,7 @@ const getAccounts = async (req, res) => {
 const getProfileInfoJson = async (id) => {
     try {
         const accountResult = await pool.query(
-            "SELECT name,surname,email FROM account WHERE user_id = $1 ",
+            "SELECT name,surname,email FROM account WHERE user_id = $1",
             [parseInt(id)]
         );
         const advertsResult = await pool.query(
@@ -81,16 +85,25 @@ const getProfileInfoJson = async (id) => {
     }
 };
 
-const getAdvertsJson = async (number) => {
+const getAdvertsJson = async (number, category) => {
     try {
-        const data = await pool.query(
-            "SELECT * FROM advert_list_view OFFSET $1 LIMIT $2",
-            [10 * (number - 1), number * 10]
-        );
+        let data = null;
+        console.log("a", 10 * (number - 1));
+        if (category === null) {
+            data = await pool.query(
+                "SELECT * FROM advert_list_view ORDER BY ad_date ASC OFFSET $1 LIMIT $2",
+                [10 * (number - 1), number * 10]
+            );
+        } else {
+            console.log("burası");
+            data = await pool.query(
+                "SELECT * FROM advert_list_view WHERE category = $3 ORDER BY ad_date ASC OFFSET $1 LIMIT $2",
+                [10 * (number - 1), number * 10, category]
+            );
+        }
         data.rows.forEach((element, index, array) => {
             // let base64Image = Buffer.from(element.photo).toString("base64");
             element.photo = Buffer.from(element.photo);
-            console.log(element.photo);
         });
         return data.rows;
     } catch (error) {

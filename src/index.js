@@ -1,15 +1,18 @@
 let currentPage = 1;
+let category = null;
 const previousBtn = document.getElementById("previousPage");
 const nextBtn = document.getElementById("nextPage");
 const displayAdverts = document.getElementById("displayAdverts");
 const profile = document.getElementById("profile");
 
-displayAdvertList();
-
-function displayAdvertList() {
-    fetch(`/api/listAdvert/${currentPage}`)
+async function displayAdvertList() {
+    fetch(`/api/listAdvert/${currentPage}/${category}`, {
+        method: "GET",
+    })
         .then((response) => response.json())
         .then((data) => {
+            const advertsParent = document.getElementById("displayAdverts");
+            advertsParent.innerHTML = "";
             for (let i = 0; i < 10; i++) {
                 if (data.data[i]) {
                     displayAdvert(data.data[i]);
@@ -55,11 +58,9 @@ function displayAdvert(item) {
     advertsParent.appendChild(advertDisplay);
 }
 function imageFormatter(image) {
-    console.log(image);
     // Assuming 'data' is your array of integers
     const uint8Array = new Uint8Array(image.data);
     const blob = new Blob([uint8Array], { type: "image/png" });
-    console.log(blob);
 
     // Create an Object URL
     return URL.createObjectURL(blob);
@@ -140,7 +141,44 @@ const routeProfilePage = (response) => {
     }
 };
 
+function getCategory() {
+    // Get all the list items with class "list-inline-item"
+    const listItems = document.querySelectorAll(".list-inline-item");
+
+    // Add click event listener to each list item
+    listItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+            // Extract the text content and store it in selectedCategory
+            category = this.textContent.trim();
+            // Call the function to update the advert list with the new category
+
+            updatePageNumber();
+        });
+    });
+}
+function getDropMenuCategory() {
+    // Get all the list items with class "list-inline-item"
+    const listItems = document.querySelectorAll(".dropDownCategory");
+
+    // Add click event listener to each list item
+    listItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+            // Extract the text content and store it in selectedCategory
+            category = this.textContent.trim();
+            const cleanedCategory =
+                category === "Ev Arkadaşı Bul" ? "Ev Arkadaşı" : category;
+            category = cleanedCategory;
+            // Call the function to update the advert list with the new category
+
+            updatePageNumber();
+        });
+    });
+}
+
 function init() {
+    document.addEventListener("DOMContentLoaded", getCategory);
+    document.addEventListener("DOMContentLoaded", getDropMenuCategory);
+    displayAdvertList();
     previousBtn.addEventListener("click", previousPage);
     nextBtn.addEventListener("click", nextPage);
     displayAdverts.addEventListener("click", goToAdvert);
