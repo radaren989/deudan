@@ -46,6 +46,7 @@ const postAdvert = async (req, res) => {
 
 const addPhotoData = async (files) => {
     let result = null;
+    console.log(files);
     switch (files.length) {
         case 1:
             console.log(files[0].buffer);
@@ -57,19 +58,24 @@ const addPhotoData = async (files) => {
         case 2:
             result = await pool.query(
                 "INSERT INTO photos (photo_0,photo_1) VALUES($1,$2)RETURNING *",
-                [files[0], files[1]]
+                [files[0].buffer, files[1].buffer]
             );
             break;
         case 3:
             result = await pool.query(
                 "INSERT INTO photos (photo_0,photo_1,photo_3) VALUES($1,$2,$3) RETURNING *",
-                [files[0], files[1], files[2]]
+                [files[0].buffer, files[1].buffer, files[2].buffer]
             );
             break;
         case 4:
             result = await pool.query(
                 "INSERT INTO photos (photo_0,photo_1,photo_3,photo_4) VALUES($1,$2,$3,$4) RETURNING *",
-                [files[0], files[1], files[2], files[3]]
+                [
+                    files[0].buffer,
+                    files[1].buffer,
+                    files[2].buffer,
+                    files[3].buffer,
+                ]
             );
             break;
         default:
