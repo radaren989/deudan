@@ -81,12 +81,17 @@ const getProfileInfoJson = async (id) => {
     }
 };
 
-const getAdvertsJson = async (number, parameter) => {
+const getAdvertsJson = async (number) => {
     try {
         const data = await pool.query(
             "SELECT * FROM advert_list_view OFFSET $1 LIMIT $2",
             [10 * (number - 1), number * 10]
         );
+        data.rows.forEach((element, index, array) => {
+            // let base64Image = Buffer.from(element.photo).toString("base64");
+            element.photo = Buffer.from(element.photo);
+            console.log(element.photo);
+        });
         return data.rows;
     } catch (error) {
         console.error("API DATABASE ERROR: ", error);

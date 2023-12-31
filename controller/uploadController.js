@@ -35,7 +35,7 @@ const postAdvert = async (req, res) => {
                 [user_id, advertResult.rows[0].ad_id]
             );
 
-            return res.status(200).send("31");
+            return res.status(201).send("31");
         }
         res.status(400).send("olmadı");
     } catch (error) {
@@ -48,9 +48,10 @@ const addPhotoData = async (files) => {
     let result = null;
     switch (files.length) {
         case 1:
+            console.log(files[0].buffer);
             result = await pool.query(
                 "INSERT INTO photos (photo_0) VALUES($1) RETURNING *",
-                [files[0]]
+                [files[0].buffer]
             );
             break;
         case 2:

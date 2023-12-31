@@ -22,6 +22,7 @@ function displayAdvertList() {
 function displayAdvert(item) {
     const advertsParent = document.getElementById("displayAdverts");
     const advertDisplay = document.createElement("article");
+    const image = imageFormatter(item.photo);
     advertDisplay.innerHTML = `<article id="${item.advert_id}" class="row mb-3">
   <div class="col-8">
       
@@ -30,7 +31,7 @@ function displayAdvert(item) {
       </span>
       <h6 class="mt-2">
           <strong>
-              <a class="underline-hover" href="#">${item.advert_title}</a>
+              <a class="underline-hover" >${item.advert_title}</a>
           </strong>
       </h6>
       <p>
@@ -46,14 +47,23 @@ function displayAdvert(item) {
       </ul>
   </div>
   <div class="col-4">
-      <img
-          ${item.image}
+      <img 
+          src="${image}"
       />
   </div>
 </article>`;
     advertsParent.appendChild(advertDisplay);
 }
+function imageFormatter(image) {
+    console.log(image);
+    // Assuming 'data' is your array of integers
+    const uint8Array = new Uint8Array(image.data);
+    const blob = new Blob([uint8Array], { type: "image/png" });
+    console.log(blob);
 
+    // Create an Object URL
+    return URL.createObjectURL(blob);
+}
 function formatISODate(isoDateTime) {
     const date = new Date(isoDateTime);
 
@@ -84,10 +94,8 @@ function previousPage() {
 }
 
 function goToAdvert(e) {
-    const advertId =
-        e.target.parentElement.parentElement.parentElement.parentElement.id;
-    console.log(advertId);
-
+    const clickedArticle = e.target.closest("article");
+    const advertId = clickedArticle.id;
     fetch(`/advert/${advertId}`, {
         method: "GET",
     }).then((response) => routeAdvertPage(response, advertId));

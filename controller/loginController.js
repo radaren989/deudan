@@ -16,10 +16,10 @@ const checkLogin = async (req, res) => {
         return res.status(400).send("Non-valid Email!");
     }
 
-    if (
-        (await checkPassword(email, password)) &&
-        (await checkEmailValification(email))
-    ) {
+    if (!(await checkEmailValification(email))) {
+        return res.status(400).send("Email Varification Not completed!");
+    }
+    if (await checkPassword(email, password)) {
         const id = await getUserId(email);
         if (id != null) {
             req.session.auth = id;

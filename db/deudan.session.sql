@@ -1,22 +1,22 @@
-DROP VIEW IF EXISTS advert_list_view;
--- Recreate the view with the new column
-CREATE VIEW advert_list_view AS
-SELECT ad.ad_id AS advert_id,
-    ad.title AS advert_title,
-    dc.price AS price,
-    dc.details AS details,
-    ph.photo_0 AS photo,
-    categories.name AS category,
-    dc.ad_date AS ad_date,
-    ac.name AS user_name,
-    ac.surname AS user_surname,
-    ac.user_id AS user_id
-FROM advert ad
-    JOIN "description" dc ON ad.desc_id = dc.desc_id
-    JOIN photos ph ON dc.photo_id = ph.photo_id
-    JOIN advert_owner ac_o ON ad.ad_id = ac_o.ad_id
-    JOIN account ac ON ac_o.user_id = ac.user_id
-    JOIN categories ON ad.cat_id = categories.cat_id;
+-- DROP VIEW IF EXISTS advert_list_view;
+-- -- Recreate the view with the new column
+-- CREATE VIEW advert_list_view AS
+-- SELECT ad.ad_id AS advert_id,
+--     ad.title AS advert_title,
+--     dc.price AS price,
+--     dc.details AS details,
+--     ph.photo_0 AS photo,
+--     categories.name AS category,
+--     dc.ad_date AS ad_date,
+--     ac.name AS user_name,
+--     ac.surname AS user_surname,
+--     ac.user_id AS user_id
+-- FROM advert ad
+--     JOIN "description" dc ON ad.desc_id = dc.desc_id
+--     JOIN photos ph ON dc.photo_id = ph.photo_id
+--     JOIN advert_owner ac_o ON ad.ad_id = ac_o.ad_id
+--     JOIN account ac ON ac_o.user_id = ac.user_id
+--     JOIN categories ON ad.cat_id = categories.cat_id;
 -- CREATE VIEW advert_view AS
 -- SELECT
 --     ad.ad_id AS advert_id,

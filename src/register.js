@@ -91,7 +91,7 @@ const routePage = (response) => {
     switch (response.status) {
         case 201: //successful
             window.location.href = "/login";
-            window.alert("HEsabı doğrula");
+            window.alert("Hesabı doğrula");
             break;
         case 400: //unsuccessful
             window.alert("Hesap Oluşturma Hatası!");
