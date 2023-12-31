@@ -1,8 +1,9 @@
 const userInfo = document.getElementById("userInfo");
 const advertsParent = document.getElementById("displayAdverts");
-displayPage();
 function displayPage() {
-    fetch("/api/profile")
+    fetch("/api/profile", {
+        method: "GET",
+    })
         .then((response) => response.json())
         .then((data) => {
             generateUserInfo(data.data.profile);
@@ -16,60 +17,89 @@ function displayPage() {
 
 function generateUserInfo(item) {
     userInfo.innerHTML = `<h2 class="text-center">Profil Özellikleri</h2>
-    <hr>
+        <hr>
         <div>
-            <label for="name"><h4>İsim:</h4></label>
-            <p>
-                ${item.name}
-            </p>
-            <hr>
+        <label for="name"><h4>İsim:</h4></label>
+        <p>
+        ${item.name}
+        </p>
+        <hr>
         </div>
         <div>
-            <label for="surname"><h4>Soyisim:</h4></label>
-            <p>
-                ${item.surname}
-            </p>
-            <hr>
+        <label for="surname"><h4>Soyisim:</h4></label>
+        <p>
+        ${item.surname}
+        </p>
+        <hr>
         </div>
         <div>
-            <label for="email"><h4>Kullancı Epostası</h4></label>
-            <p>
-                ${item.email}
-            </p> 
-            <hr>
+        <label for="email"><h4>Kullancı Epostası</h4></label>
+        <p>
+        ${item.email}
+        </p> 
+        <hr>
         </div>`;
 }
 
 function generateAdvert(item) {
+    const advertsParent = document.getElementById("displayAdverts");
     const advertDisplay = document.createElement("article");
-    advertDisplay.innerHTML = `<article class="row mb-3">
-    <div class="col-8">
+    const image = imageFormatter(item.photo);
+    advertDisplay.innerHTML = `<article id="${
+        item.advert_id
+    }" class="row mb-3 border border-secondary">
+        <div class="col-8">
         
         <span class="small ml-1">${item.user_name + " " + item.user_surname}
         </span>
         <h6 class="mt-2">
-            <strong>
-                <a href='#' class="underline-hover">${item.advert_title}</a>
-            </strong>
+        <strong>
+        <a class="underline-hover">${item.advert_title}</a>
+        </strong>
         </h6>
         <p>
-            ${item.details}
+        ${item.details}
         </p>
         <ul class="list-inline small">
-            <li class="list-inline-item">${formatISODate(item.ad_date)}</li>
-            <button type="submit" class="btn btn-dark btn-block">
-                        ilani sil
-                    </button>
-            <li class="list-inline-item">
-                <i class="far fa-star"></i>
-            </li>
+        <li class="list-inline-item">${formatISODate(item.ad_date)}</li>
+        <button type="submit" class="btn btn-dark btn-block delete-btn">
+        ilani sil
+        </button>
+        <li class="list-inline-item">
+        <i class="far fa-star"></i>
+        </li>
         </ul>
-    </div>
-    <div class="col-4">
-        <img src="https://picsum.photos/400/250" alt="" class="w-100">
-    </div>
-</article>`;
+        </div>
+        <div class="col-4" style="height: 200px">
+        <img src="${image}" alt="" class="h-100">
+        </div>
+        </article>`;
     advertsParent.appendChild(advertDisplay);
+
+    const deleteButton = advertDisplay.querySelector(".delete-btn");
+    deleteButton.addEventListener("click", function () {
+        fetch(`/api/delete/${item.advert_id}`, {
+            method: "DELETE",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                alert(data.msg);
+                location.reload();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
+}
+function deleteAdvert() {}
+
+function imageFormatter(image) {
+    // Assuming 'data' is your array of integers
+    const uint8Array = new Uint8Array(image.data);
+    const blob = new Blob([uint8Array], { type: "image/png" });
+
+    // Create an Object URL
+    return URL.createObjectURL(blob);
 }
 
 function formatISODate(isoDateTime) {
@@ -84,9 +114,9 @@ function formatISODate(isoDateTime) {
     return formattedDate;
 }
 function goToAdvert(e) {
-    const advertId =
-        e.target.parentElement.parentElement.parentElement.parentElement.id;
-    console.log(advertId);
+    if (e.target.tagName.toLowerCase() === "button") return;
+    const clickedArticle = e.target.closest("article");
+    const advertId = clickedArticle.id;
 
     fetch(`/advert/${advertId}`, {
         method: "GET",
@@ -109,4 +139,9 @@ const routeAdvertPage = (response, id) => {
     }
 };
 
-advertsParent.addEventListener("click", goToAdvert);
+function init() {
+    advertsParent.addEventListener("click", goToAdvert);
+    displayPage();
+}
+
+init();

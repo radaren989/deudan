@@ -26,6 +26,8 @@ const checkLogin = async (req, res) => {
             req.session.email = email;
             return res.status(200).send("successful");
         }
+    } else {
+        return res.status(400).send("wrong credientals");
     }
     res.status(401).send("unsuccessful");
 };

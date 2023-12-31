@@ -1,8 +1,7 @@
 SELECT *
-FROM advert_list_view
-ORDER BY ad_date ASC,
-    advert_id ASC OFFSET 0
-LIMIT 10;
+FROM advert;
+SELECT *
+FROM advert_owner;
 -- DROP VIEW IF EXISTS advert_list_view;
 -- -- Recreate the view with the new column
 -- CREATE VIEW advert_list_view AS

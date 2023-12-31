@@ -5,12 +5,14 @@ const {
     getAccounts,
     getSingleAdvert,
     getProfileInfo,
+    deleteAdvert,
 } = require("../controller/apiController");
 
 router
     .get("/listAdvert/:number/:category", getAdverts)
     .get("/accounts", getAccounts)
     .get("/advert/:id", getSingleAdvert)
-    .get("/profile", getProfileInfo);
+    .get("/profile", getProfileInfo)
+    .delete("/delete/:id", deleteAdvert);
 
 module.exports = router;

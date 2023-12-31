@@ -26,7 +26,9 @@ function displayAdvert(item) {
     const advertsParent = document.getElementById("displayAdverts");
     const advertDisplay = document.createElement("article");
     const image = imageFormatter(item.photo);
-    advertDisplay.innerHTML = `<article id="${item.advert_id}" class="row mb-3">
+    advertDisplay.innerHTML = `<article id="${
+        item.advert_id
+    }" class="row mb-3 border border-secondary">
   <div class="col-8">
       
       <span class="small ml-1"
@@ -49,10 +51,9 @@ function displayAdvert(item) {
           </li>
       </ul>
   </div>
-  <div class="col-4">
+  <div class="col-4" style="height: 200px">
       <img 
-          src="${image}"
-      />
+          src="${image}" class="h-100" />
   </div>
 </article>`;
     advertsParent.appendChild(advertDisplay);
