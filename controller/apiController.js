@@ -36,7 +36,6 @@ const getSingleAdvert = async (req, res) => {
 const getAdverts = async (req, res) => {
     try {
         const { number, category } = req.params;
-        console.log(category);
         let data = null;
         if (category !== "null") {
             data = await getAdvertsJson(parseInt(number), category);
@@ -88,14 +87,12 @@ const getProfileInfoJson = async (id) => {
 const getAdvertsJson = async (number, category) => {
     try {
         let data = null;
-        console.log("a", 10 * (number - 1));
         if (category === null) {
             data = await pool.query(
                 "SELECT * FROM advert_list_view ORDER BY ad_date ASC OFFSET $1 LIMIT $2",
                 [10 * (number - 1), number * 10]
             );
         } else {
-            console.log("burası");
             data = await pool.query(
                 "SELECT * FROM advert_list_view WHERE category = $3 ORDER BY ad_date ASC OFFSET $1 LIMIT $2",
                 [10 * (number - 1), number * 10, category]

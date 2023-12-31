@@ -143,22 +143,7 @@ const routeProfilePage = (response) => {
 
 function getCategory() {
     // Get all the list items with class "list-inline-item"
-    const listItems = document.querySelectorAll(".list-inline-item");
-
-    // Add click event listener to each list item
-    listItems.forEach(function (item) {
-        item.addEventListener("click", function () {
-            // Extract the text content and store it in selectedCategory
-            category = this.textContent.trim();
-            // Call the function to update the advert list with the new category
-
-            updatePageNumber();
-        });
-    });
-}
-function getDropMenuCategory() {
-    // Get all the list items with class "list-inline-item"
-    const listItems = document.querySelectorAll(".dropDownCategory");
+    const listItems = document.querySelectorAll(".category");
 
     // Add click event listener to each list item
     listItems.forEach(function (item) {
@@ -177,7 +162,6 @@ function getDropMenuCategory() {
 
 function init() {
     document.addEventListener("DOMContentLoaded", getCategory);
-    document.addEventListener("DOMContentLoaded", getDropMenuCategory);
     displayAdvertList();
     previousBtn.addEventListener("click", previousPage);
     nextBtn.addEventListener("click", nextPage);
