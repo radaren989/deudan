@@ -1,7 +1,8 @@
-SELECT *
-FROM advert;
-SELECT *
-FROM advert_owner;
+DROP TABLE favorites;
+-- DELETE FROM advert_owner;
+-- DELETE FROM advert;
+-- DELETE FROM "description";
+-- DELETE FROM photos;
 -- DROP VIEW IF EXISTS advert_list_view;
 -- -- Recreate the view with the new column
 -- CREATE VIEW advert_list_view AS

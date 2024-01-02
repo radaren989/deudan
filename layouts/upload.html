@@ -16,6 +16,9 @@
 
         <title>DEUDAN</title>
         <style>
+            #imageForm {
+                height: 2000px;
+            }
             .custom-top-margin {
                 margin-top: 180px;
             }
@@ -64,7 +67,9 @@
                     <div class="row">
                         <div class="col-md-6 custom-top-margin3">
                             <div class="center-content image-box" id="box1">
-                                <label for="image1">Resim 1 Yükle</label>
+                                <label id="labelImage1" for="image1"
+                                    >Resim 1 Yükle</label
+                                >
                                 <input
                                     type="file"
                                     id="image1"
@@ -72,9 +77,12 @@
                                     accept="image/*"
                                     style="display: none"
                                 />
+                                <img id="imagePreview1" alt="" />
                             </div>
                             <div class="center-content image-box" id="box2">
-                                <label for="image3">Resim 3 Yükle</label>
+                                <label id="labelImage3" for="image3"
+                                    >Resim 3 Yükle</label
+                                >
                                 <input
                                     type="file"
                                     id="image3"
@@ -82,11 +90,14 @@
                                     accept="image/*"
                                     style="display: none"
                                 />
+                                <img id="imagePreview3" alt="" />
                             </div>
                         </div>
                         <div class="col-md-6 custom-top-margin3">
                             <div class="center-content image-box" id="box3">
-                                <label for="image2">Resim 2 Yükle</label>
+                                <label id="labelImage2" for="image2"
+                                    >Resim 2 Yükle</label
+                                >
                                 <input
                                     type="file"
                                     id="image2"
@@ -94,9 +105,12 @@
                                     accept="image/*"
                                     style="display: none"
                                 />
+                                <img id="imagePreview2" alt="" />
                             </div>
                             <div class="center-content image-box" id="box4">
-                                <label for="image4">Resim 4 Yükle</label>
+                                <label id="labelImage4" for="image4"
+                                    >Resim 4 Yükle</label
+                                >
                                 <input
                                     type="file"
                                     id="image4"
@@ -104,6 +118,7 @@
                                     accept="image/*"
                                     style="display: none"
                                 />
+                                <img id="imagePreview4" alt="" />
                             </div>
                         </div>
                     </div>
@@ -166,7 +181,7 @@
                 </form>
             </div>
         </div>
-        <script src="/src/upload.js"></script>
+        <script src="../src/upload.js"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
